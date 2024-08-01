@@ -5,7 +5,7 @@
     "name": "Alex Lee",
     "email": "3076438032@qq.com"
   },
-  "description": "A logseq plugin to show the time when a task is done",
+  "description": "A logseq plugin to add task done time information silently.",
   "main": "dist/index.html",
   "scripts": {
     "dev": "vite",
