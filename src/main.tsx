@@ -4,9 +4,9 @@ import React from 'react'
 import { format } from 'date-fns'
 import * as ReactDOM from 'react-dom/client'
 
-import App from './App'
-
 import './index.css'
+import App from './App'
+import { getDatePattern } from './libs/date'
 import { logseq as pluginInfo } from '../package.json'
 
 // @ts-expect-error
@@ -81,7 +81,7 @@ async function main() {
     const addedContent = `- [[${formattedUserDate}]]`
 
     // 检查是否已经加入过内容
-    const datePattern = /\d{4}-\d{2}-\d{2}/
+    const datePattern = getDatePattern(preferredDateFormat)
     const combinedPattern = new RegExp(`- \\[\\[${datePattern.source}\\]\\]`)
 
     // 已经加入过内容，而且状态为DONE，则不操作

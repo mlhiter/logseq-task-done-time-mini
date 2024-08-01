@@ -8,6 +8,7 @@
 - Pnpm
 
 ## How to get started
+
 1. Clone the repository or use the button "Use this template" on GitHub to create your own version of the repository 🔨
 2. Make sure you have pnpm installed, [install](https://pnpm.io/installation) if necessary 🛠
 3. Execute `pnpm install` 📦
@@ -16,3 +17,9 @@
 6. Enable developer-mode in Logseq, go to plugins, select "Load unpacked plugin" 🔌
 7. Select the directory of your plugin (not the `/dist`-directory, but the directory which includes your package.json) 📂
 8. Enjoy! 🎉
+
+## Some you should know
+
+1. Preferred date page format maybe have some error map,because I didn't test it.If it has error,please tell me about it in issues.
+
+2. I update block when your block changed,if it caused some performance problems,please tell me.
