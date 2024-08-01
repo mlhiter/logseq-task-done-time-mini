@@ -5,9 +5,9 @@ export const settingSchema: Array<SettingSchemaDesc> = [
     key: 'doneContent',
     type: 'string',
     default: '{content} - [[{date}]]',
-    title: 'Done内容',
+    title: 'Done信息',
     description:
-      '插入的内容，支持几个变量，如`{date}`指当前日期，`{time}`指当前时间',
+      '插入的信息，支持几个变量，如`{date}`指当前日期，`{time}`指当前时间',
   },
   {
     key: 'displayPosition',
@@ -35,5 +35,12 @@ export const settingSchema: Array<SettingSchemaDesc> = [
     default: true,
     title: '是否默认折叠子块',
     description: 'true默认折叠，false默认不折叠（只在childBlock模式生效）',
+  },
+  {
+    key: 'isJournalPageAdd',
+    type: 'boolean',
+    default: false,
+    title: '日志界面当日任务当日完成是否添加Done信息',
+    description: 'true表示当日任务当日完成时添加Done信息，false表示不添加',
   },
 ]

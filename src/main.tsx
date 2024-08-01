@@ -16,6 +16,7 @@ interface Settings {
   displayPosition: 'left' | 'right'
   collapseMode: boolean
   disabled: boolean
+  isJournalPageAdd: boolean
 }
 
 // main function
@@ -31,6 +32,7 @@ async function main() {
       displayPosition: 'right',
       displayMode: 'content',
       collapseMode: true,
+      isJournalPageAdd: false,
     })
   }
 
@@ -42,13 +44,28 @@ async function main() {
     if (data.txMeta?.outlinerOp !== 'save-block') return
     if (data.txMeta?.undo || data.txMeta?.redo) return
 
+    const {
+      doneContent,
+      displayMode,
+      displayPosition,
+      collapseMode,
+      isJournalPageAdd,
+    } = logseq.settings as unknown as Settings
+
     const block = await logseq.Editor.getBlock(data.blocks[0].uuid)
     const isDoneStatus = block?.marker === 'DONE'
+    const pageId = block?.page.id as number
+    const currentPage = await logseq.Editor.getPage(pageId, {
+      includeChildren: false,
+    })
+    if (
+      currentPage?.name === format(new Date(), preferredDateFormat) &&
+      !isJournalPageAdd
+    ) {
+      return
+    }
 
     if (!block || !block.content || !block.marker) return
-
-    const { doneContent, displayMode, displayPosition, collapseMode } =
-      logseq.settings as unknown as Settings
 
     switch (displayMode) {
       case 'content':
