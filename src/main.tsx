@@ -73,7 +73,7 @@ async function main() {
     console.log('current block', block)
     const isDoneStatus = block?.marker === 'DONE'
 
-    if (!block || !isDoneStatus || !currentBlockContent) return
+    if (!block || !currentBlockContent) return
 
     const date = new Date()
     const formattedUserDate = format(date, preferredDateFormat)
@@ -86,15 +86,16 @@ async function main() {
 
     // 已经加入过内容，而且状态为DONE，则不操作
     // 已经加入过内容，但是状态变为其他状态，删除添加的内容
+    // 没有加入过内容，而且状态为DONE则加入内容
     if (combinedPattern.test(currentBlockContent)) {
       if (isDoneStatus) return
       const newContent = currentBlockContent.replace(combinedPattern, '').trim()
       await logseq.Editor.updateBlock(block.uuid, newContent)
       return
+    } else if (isDoneStatus) {
+      const newContent = ` ${currentBlockContent} ${addedContent}`
+      await logseq.Editor.updateBlock(block.uuid, newContent)
     }
-
-    const newContent = ` ${currentBlockContent} ${addedContent}`
-    await logseq.Editor.updateBlock(block.uuid, newContent)
   })
 }
 
