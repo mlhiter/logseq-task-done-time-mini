@@ -1,6 +1,7 @@
 {
-  "name": "logseq-plugin-template-react",
-  "version": "0.0.0",
+  "name": "logseq-task-done-time-mini",
+  "version": "0.0.1",
+  "description": "A logseq plugin to show the time when a task is done",
   "main": "dist/index.html",
   "scripts": {
     "dev": "vite",
@@ -10,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@logseq/libs": "^0.0.17",
+    "date-fns": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -37,7 +39,7 @@
     "vite-plugin-logseq": "1.1.2"
   },
   "logseq": {
-    "id": "_pengx17-logseq-template-react",
+    "id": "logseq-task-done-time-mini",
     "icon": "./logo.svg"
   }
 }
