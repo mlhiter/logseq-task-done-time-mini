@@ -80,11 +80,6 @@ async function main() {
     })
   }
 
-  const { doneContent, displayMode, displayPosition, collapseMode } =
-    logseq.settings as unknown as Settings
-
-  console.log(doneContent, displayPosition, displayMode, collapseMode)
-
   logseq.useSettingsSchema(settingSchema)
 
   // 监控数据变化
@@ -97,6 +92,9 @@ async function main() {
     const isDoneStatus = block?.marker === 'DONE'
 
     if (!block || !block.content) return
+
+    const { doneContent, displayMode, displayPosition, collapseMode } =
+      logseq.settings as unknown as Settings
 
     const datePattern = getDatePattern(preferredDateFormat)
     const timePattern = '\\d{2}:\\d{2}(:\\d{2})?'
