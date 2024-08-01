@@ -1,18 +1,12 @@
 import '@logseq/libs'
 
-import React from 'react'
 import { format } from 'date-fns'
-import * as ReactDOM from 'react-dom/client'
 
 import './index.css'
-import App from './App'
 import { getDatePattern } from './libs/date'
 import { settingSchema } from './libs/settings'
 import { logseq as pluginInfo } from '../package.json'
 import { BlockEntity, BlockIdentity } from '@logseq/libs/dist/LSPlugin'
-
-// @ts-expect-error
-const css = (t, ...args) => String.raw(t, ...args)
 
 const pluginId = pluginInfo.id
 
@@ -27,47 +21,6 @@ interface Settings {
 // main function
 async function main() {
   console.info(`#${pluginId}: MAIN`)
-  const root = ReactDOM.createRoot(document.getElementById('app')!)
-
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  )
-
-  function createModel() {
-    return {
-      show() {
-        logseq.showMainUI()
-      },
-    }
-  }
-
-  logseq.provideModel(createModel())
-  logseq.setMainUIInlineStyle({
-    zIndex: 11,
-  })
-
-  const openIconName = 'TaskDoneTime-Mini'
-
-  logseq.provideStyle(css`
-    .${openIconName} {
-      opacity: 0.55;
-      font-size: 20px;
-      margin-top: 4px;
-    }
-
-    .${openIconName}:hover {
-      opacity: 0.9;
-    }
-  `)
-
-  logseq.App.registerUIItem('toolbar', {
-    key: openIconName,
-    template: `
-      <div data-on-click="show" class="${openIconName}">⚙️</div>
-    `,
-  })
 
   const { preferredDateFormat } = await logseq.App.getUserConfigs()
 
