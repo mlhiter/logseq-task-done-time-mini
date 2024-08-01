@@ -87,6 +87,7 @@ async function main() {
 
   // 监控数据变化
   logseq.DB.onChanged(async (data) => {
+    // 只监测数据修改，且不是撤销和重做操作
     if (data.txMeta?.outlinerOp !== 'save-block') return
     if (data.txMeta?.undo || data.txMeta?.redo) return
 
@@ -95,25 +96,31 @@ async function main() {
 
     if (!block || !block.content) return
 
-    const date = new Date()
-    const formattedUserDate = format(date, preferredDateFormat)
-
-    const addedContent = `- [[${formattedUserDate}]]`
-
-    // 检查是否已经加入过内容
     const datePattern = getDatePattern(preferredDateFormat)
     const combinedPattern = new RegExp(`- \\[\\[${datePattern.source}\\]\\]`)
 
-    // 已经加入过内容，而且状态为DONE，则不操作
-    // 已经加入过内容，但是状态变为其他状态，删除添加的内容
-    // 没有加入过内容，而且状态为DONE则加入内容
+    // 1. 已经加入过内容，而且状态为DONE，则不操作（这个改到靠上的位置了，减少执行代码的数量，优化性能）
+    if (combinedPattern.test(block.content) && isDoneStatus) {
+      return
+    }
+
+    // 2. 已经加入过内容，但是状态变为其他状态，删除添加的内容
     if (combinedPattern.test(block.content)) {
-      if (isDoneStatus) return
       const newContent = block.content.replace(combinedPattern, '').trim()
       await logseq.Editor.updateBlock(block.uuid, newContent)
       return
-    } else if (isDoneStatus) {
-      const newContent = ` ${block.content} ${addedContent}`
+    }
+
+    // 3. 没有加入过内容，而且状态为DONE则加入内容
+    // 首先检测doneContent是否包含{date}，{content}，{time}等变量并分别替换为真实值
+    const contentForReplace = doneContent
+      .replace(/\{date\}/g, format(new Date(), preferredDateFormat))
+      .replace(/\{content\}/g, block.content)
+      .replace(/\{time\}/g, format(new Date(), 'HH:mm'))
+    console.log(contentForReplace)
+
+    if (isDoneStatus) {
+      const newContent = contentForReplace
       await logseq.Editor.updateBlock(block.uuid, newContent)
     }
   })
