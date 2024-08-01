@@ -7,12 +7,20 @@ import * as ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import { getDatePattern } from './libs/date'
+import { settingSchema } from './libs/settings'
 import { logseq as pluginInfo } from '../package.json'
 
 // @ts-expect-error
 const css = (t, ...args) => String.raw(t, ...args)
 
 const pluginId = pluginInfo.id
+
+interface Settings {
+  doneContent: string
+  displayMode: 'content' | 'property' | 'childBlock'
+  collapseMode: boolean
+  disabled: boolean
+}
 
 // main function
 async function main() {
@@ -61,19 +69,31 @@ async function main() {
 
   const { preferredDateFormat } = await logseq.App.getUserConfigs()
 
+  // 初始化设置（当安装插件之后第一次注入）
+  if (logseq.settings === undefined) {
+    logseq.updateSettings({
+      doneContent: '{content} - [[{date}]]',
+      displayMode: 'content',
+      collapseMode: true,
+    })
+  }
+
+  const { doneContent, displayMode, collapseMode } =
+    logseq.settings as unknown as Settings
+
+  console.log(doneContent, displayMode, collapseMode)
+
+  logseq.useSettingsSchema(settingSchema)
+
   // 监控数据变化
   logseq.DB.onChanged(async (data) => {
     if (data.txMeta?.outlinerOp !== 'save-block') return
     if (data.txMeta?.undo || data.txMeta?.redo) return
 
-    console.log('data changed', data)
-
     const block = await logseq.Editor.getBlock(data.blocks[0].uuid)
-    const currentBlockContent = block?.content
-    console.log('current block', block)
     const isDoneStatus = block?.marker === 'DONE'
 
-    if (!block || !currentBlockContent) return
+    if (!block || !block.content) return
 
     const date = new Date()
     const formattedUserDate = format(date, preferredDateFormat)
@@ -87,13 +107,13 @@ async function main() {
     // 已经加入过内容，而且状态为DONE，则不操作
     // 已经加入过内容，但是状态变为其他状态，删除添加的内容
     // 没有加入过内容，而且状态为DONE则加入内容
-    if (combinedPattern.test(currentBlockContent)) {
+    if (combinedPattern.test(block.content)) {
       if (isDoneStatus) return
-      const newContent = currentBlockContent.replace(combinedPattern, '').trim()
+      const newContent = block.content.replace(combinedPattern, '').trim()
       await logseq.Editor.updateBlock(block.uuid, newContent)
       return
     } else if (isDoneStatus) {
-      const newContent = ` ${currentBlockContent} ${addedContent}`
+      const newContent = ` ${block.content} ${addedContent}`
       await logseq.Editor.updateBlock(block.uuid, newContent)
     }
   })
