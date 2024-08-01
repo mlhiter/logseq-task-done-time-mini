@@ -7,7 +7,17 @@ export const settingSchema: Array<SettingSchemaDesc> = [
     default: '{content} - [[{date}]]',
     title: 'Done内容',
     description:
-      '插入的内容，支持几个变量，如`{content}`表示未填充信息之前的块内容（仅在content模式可用，注意这个内容不包括DONE关键字），`{date}`指当前日期，`{time}`指当前时间',
+      '插入的内容，支持几个变量，如`{date}`指当前日期，`{time}`指当前时间',
+  },
+  {
+    key: 'displayPosition',
+    type: 'enum',
+    default: 'right',
+    title: '展示位置',
+    description:
+      'left表示展示在原来内容的左边，right表示展示在原来内容的右边（该配置只在content模式生效）',
+    enumChoices: ['left', 'right'],
+    enumPicker: 'radio',
   },
   {
     key: 'displayMode',

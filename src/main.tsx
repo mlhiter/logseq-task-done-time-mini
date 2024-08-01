@@ -18,6 +18,7 @@ const pluginId = pluginInfo.id
 interface Settings {
   doneContent: string
   displayMode: 'content' | 'property' | 'childBlock'
+  displayPosition: 'left' | 'right'
   collapseMode: boolean
   disabled: boolean
 }
@@ -72,16 +73,17 @@ async function main() {
   // 初始化设置（当安装插件之后第一次注入）
   if (logseq.settings === undefined) {
     logseq.updateSettings({
-      doneContent: '{content} - [[{date}]]',
+      doneContent: '- [[{date}]]',
+      displayPosition: 'right',
       displayMode: 'content',
       collapseMode: true,
     })
   }
 
-  const { doneContent, displayMode, collapseMode } =
+  const { doneContent, displayMode, displayPosition, collapseMode } =
     logseq.settings as unknown as Settings
 
-  console.log(doneContent, displayMode, collapseMode)
+  console.log(doneContent, displayPosition, displayMode, collapseMode)
 
   logseq.useSettingsSchema(settingSchema)
 
@@ -97,16 +99,26 @@ async function main() {
     if (!block || !block.content) return
 
     const datePattern = getDatePattern(preferredDateFormat)
-    const combinedPattern = new RegExp(`- \\[\\[${datePattern.source}\\]\\]`)
+    const timePattern = '\\d{2}:\\d{2}(:\\d{2})?'
+    // 转义 doneContent 中的特殊字符
+    const escapeRegExp = (string: string) => {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    }
+    // 替换 doneContent 中的占位符，并保留转义后的特殊字符
+    const combinedPattern = escapeRegExp(doneContent)
+      .replace(/\\\{date\\\}/g, datePattern)
+      .replace(/\\\{time\\\}/g, timePattern)
+    const regex = new RegExp(combinedPattern)
+    console.log(regex.test(block.content))
 
     // 1. 已经加入过内容，而且状态为DONE，则不操作
-    if (combinedPattern.test(block.content) && isDoneStatus) {
+    if (regex.test(block.content) && isDoneStatus) {
       return
     }
 
     // 2. 已经加入过内容，但是状态变为其他状态，删除添加的内容
-    if (combinedPattern.test(block.content)) {
-      const newContent = block.content.replace(combinedPattern, '').trim()
+    if (regex.test(block.content)) {
+      const newContent = block.content.replace(regex, '').trim()
       await logseq.Editor.updateBlock(block.uuid, newContent)
       return
     }
@@ -115,18 +127,19 @@ async function main() {
     if (!isDoneStatus) return
 
     // 4. 没有加入过内容，而且状态为DONE则加入内容
-    // 首先检测doneContent是否包含{date}，{content}，{time}等变量并分别替换为真实值
-    // 并且注意处理block.content开头的DONE字符串
+    // 首先检测doneContent是否包含{date}，{time}等变量并分别替换为真实值
+    // 并且注意处理block.content开头的DONE字符串（这个字符串必须在开头，即便我们将displayPosition设置为left）
     const contentWithoutDone = block.content.replace(/^DONE\s*/, '')
     const tempContentForReplace = doneContent
       .replace(/\{date\}/g, format(new Date(), preferredDateFormat))
-      .replace(/\{content\}/g, contentWithoutDone)
       .replace(/\{time\}/g, format(new Date(), 'HH:mm'))
-    const finalContentForReplace = `DONE ${tempContentForReplace}`
+    const finalContentForReplace =
+      displayPosition === 'right'
+        ? `DONE ${contentWithoutDone} ${tempContentForReplace}`
+        : `DONE ${tempContentForReplace} ${contentWithoutDone}`
 
     if (isDoneStatus) {
-      const newContent = finalContentForReplace
-      await logseq.Editor.updateBlock(block.uuid, newContent)
+      await logseq.Editor.updateBlock(block.uuid, finalContentForReplace)
     }
   })
 }
