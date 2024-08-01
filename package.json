@@ -1,6 +1,10 @@
 {
   "name": "logseq-task-done-time-mini",
-  "version": "0.0.1",
+  "version": "0.5.0",
+  "author": {
+    "name": "Alex Lee",
+    "email": "3076438032@qq.com"
+  },
   "description": "A logseq plugin to show the time when a task is done",
   "main": "dist/index.html",
   "scripts": {
