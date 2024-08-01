@@ -12,7 +12,7 @@ Later, I saw some plugins in the community, such as [logseq-plugin-confirmation-
 
 My requirement was to silently add marking information with a certain level of customization. I use Logseq intensively every day and my demands for many details have been increasing, so I came up with the idea of writing my own plugin.
 
-So I spent two days creating a simple prototype ([about that day](https://mlhiter.github.io/#/page/66ab2e0f-4962-4753-90a3-4950c1350a5b)).
+So I spent two days creating a simple prototype ([about that day](https://mlhiter.github.io/#/page/logseq-task-done-time-mini)).
 
 (I didn't expect that developing a Logseq plugin would be quite easy, even a bit simple 😀)
 
