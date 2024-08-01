@@ -99,7 +99,7 @@ async function main() {
     const datePattern = getDatePattern(preferredDateFormat)
     const combinedPattern = new RegExp(`- \\[\\[${datePattern.source}\\]\\]`)
 
-    // 1. 已经加入过内容，而且状态为DONE，则不操作（这个改到靠上的位置了，减少执行代码的数量，优化性能）
+    // 1. 已经加入过内容，而且状态为DONE，则不操作
     if (combinedPattern.test(block.content) && isDoneStatus) {
       return
     }
@@ -111,16 +111,21 @@ async function main() {
       return
     }
 
-    // 3. 没有加入过内容，而且状态为DONE则加入内容
+    // 3. 没有加入过内容，而且状态不为DONE则不操作
+    if (!isDoneStatus) return
+
+    // 4. 没有加入过内容，而且状态为DONE则加入内容
     // 首先检测doneContent是否包含{date}，{content}，{time}等变量并分别替换为真实值
-    const contentForReplace = doneContent
+    // 并且注意处理block.content开头的DONE字符串
+    const contentWithoutDone = block.content.replace(/^DONE\s*/, '')
+    const tempContentForReplace = doneContent
       .replace(/\{date\}/g, format(new Date(), preferredDateFormat))
-      .replace(/\{content\}/g, block.content)
+      .replace(/\{content\}/g, contentWithoutDone)
       .replace(/\{time\}/g, format(new Date(), 'HH:mm'))
-    console.log(contentForReplace)
+    const finalContentForReplace = `DONE ${tempContentForReplace}`
 
     if (isDoneStatus) {
-      const newContent = contentForReplace
+      const newContent = finalContentForReplace
       await logseq.Editor.updateBlock(block.uuid, newContent)
     }
   })
