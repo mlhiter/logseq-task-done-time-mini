@@ -40,6 +40,7 @@
   },
   "logseq": {
     "id": "logseq-task-done-time-mini",
+    "title": "Task Done Time Mini",
     "icon": "./logo.svg"
   }
 }
