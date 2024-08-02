@@ -1,10 +1,6 @@
 {
   "name": "logseq-task-done-time-mini",
   "version": "1.0.0",
-  "author": {
-    "name": "Alex Lee",
-    "email": "3076438032@qq.com"
-  },
   "description": "A logseq plugin to add task done time information silently.",
   "main": "dist/index.html",
   "scripts": {
