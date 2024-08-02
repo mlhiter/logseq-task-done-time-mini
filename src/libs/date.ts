@@ -22,9 +22,9 @@ const dateFormatPatterns: Record<string, string> = {
   'MM/dd/yyyy': '\\w{2}/\\d{2}/\\d{4}',
   MM_dd_yyyy: '\\d{2}_\\d{2}_\\d{4}',
 
-  'MMM do,yyyy': '\\w{3} \\w{3,4},\\d{4}',
+  'MMM do, yyyy': '\\w{3} \\w{3,4},\\d{4}',
 
-  'MMMM do,yyyy': '\\w{4,} \\w{3,4},\\d{4}',
+  'MMMM do, yyyy': '\\w{4,} \\w{3,4},\\d{4}',
 
   'dd-MM-yyyy': '\\d{2}-\\d{2}-\\d{4}',
 
