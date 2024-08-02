@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.0.2...v1.1.0) (2024-08-02)
+
+
+### Features
+
+* i18n basic support ([110c2e5](https://github.com/mlhiter/logseq-task-done-time-mini/commit/110c2e5ddfa7f99edadfe886e9a8633bca5cde45))
+
 ## [1.0.2](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.0.1...v1.0.2) (2024-08-02)
 
 
