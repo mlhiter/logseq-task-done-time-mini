@@ -7,6 +7,7 @@ import { getDatePattern } from './libs/date'
 import { settingSchema } from './libs/settings'
 import { logseq as pluginInfo } from '../package.json'
 import { BlockEntity, BlockIdentity } from '@logseq/libs/dist/LSPlugin'
+import { englishSettingSchema } from './libs/settings_en'
 
 const pluginId = pluginInfo.id
 
@@ -34,7 +35,12 @@ async function main() {
     })
   }
 
-  logseq.useSettingsSchema(settingSchema)
+  const { preferredLanguage } = await logseq.App.getUserConfigs()
+  if (preferredLanguage === 'zh-CN') {
+    logseq.useSettingsSchema(settingSchema)
+  } else {
+    logseq.useSettingsSchema(englishSettingSchema)
+  }
 
   // 监控数据变化
   logseq.DB.onChanged(async (data) => {
