@@ -1,6 +1,6 @@
 {
   "name": "logseq-task-done-time-mini",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A logseq plugin to add task done time information silently.",
   "main": "dist/index.html",
   "scripts": {
