@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.0.0...v1.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* react ui error ([9dd8d7d](https://github.com/mlhiter/logseq-task-done-time-mini/commit/9dd8d7d89bd78c7a3b56c96377c06792cb6701bb))
+
 # 1.0.0 (2024-08-01)
 
 ### Bug Fixes
