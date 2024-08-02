@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.0.1...v1.0.2) (2024-08-02)
+
+
+### Bug Fixes
+
+* date regexp error ([85926d4](https://github.com/mlhiter/logseq-task-done-time-mini/commit/85926d4564f9b5a334cb8dcb45a2f6d8a97cf285))
+
 ## [1.0.1](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.0.0...v1.0.1) (2024-08-02)
 
 
