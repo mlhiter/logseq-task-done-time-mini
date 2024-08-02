@@ -23,8 +23,6 @@ interface Settings {
 async function main() {
   console.info(`#${pluginId}: MAIN`)
 
-  const { preferredDateFormat } = await logseq.App.getUserConfigs()
-
   // 初始化设置（当安装插件之后第一次注入）
   if (logseq.settings === undefined) {
     logseq.updateSettings({
@@ -52,6 +50,9 @@ async function main() {
       isJournalPageAdd,
     } = logseq.settings as unknown as Settings
 
+    // 用户如果更改了日期格式，需要重新获取（放在main函数顶层获取不到最新,所以放这里）
+    const { preferredDateFormat } = await logseq.App.getUserConfigs()
+
     const block = await logseq.Editor.getBlock(data.blocks[0].uuid)
     const isDoneStatus = block?.marker === 'DONE'
     const pageId = block?.page.id as number
@@ -69,13 +70,30 @@ async function main() {
 
     switch (displayMode) {
       case 'content':
-        await updateContent(block, isDoneStatus, doneContent, displayPosition)
+        await updateContent(
+          block,
+          isDoneStatus,
+          doneContent,
+          displayPosition,
+          preferredDateFormat
+        )
         break
       case 'property':
-        await updateProperty(block, isDoneStatus, doneContent)
+        await updateProperty(
+          block,
+          isDoneStatus,
+          doneContent,
+          preferredDateFormat
+        )
         break
       case 'childBlock':
-        await updateChildBlock(block, isDoneStatus, doneContent, collapseMode)
+        await updateChildBlock(
+          block,
+          isDoneStatus,
+          doneContent,
+          collapseMode,
+          preferredDateFormat
+        )
         break
     }
   })
@@ -83,7 +101,8 @@ async function main() {
     block: BlockEntity,
     isDoneStatus: boolean,
     doneContent: string,
-    displayPosition: string
+    displayPosition: string,
+    preferredDateFormat: string
   ) {
     const datePattern = getDatePattern(preferredDateFormat)
     const timePattern = '\\d{2}:\\d{2}(:\\d{2})?'
@@ -127,7 +146,8 @@ async function main() {
   async function updateProperty(
     block: BlockEntity,
     isDoneStatus: boolean,
-    doneContent: string
+    doneContent: string,
+    preferredDateFormat: string
   ) {
     // 从doneContent中提取出属性值
     const propertyRegex = /(\w+)::\s+(.+)/
@@ -171,7 +191,8 @@ async function main() {
     block: BlockEntity,
     isDoneStatus: boolean,
     doneContent: string,
-    collapseMode: boolean
+    collapseMode: boolean,
+    preferredDateFormat: string
   ) {
     const datePattern = getDatePattern(preferredDateFormat)
     const timePattern = '\\d{2}:\\d{2}(:\\d{2})?'
