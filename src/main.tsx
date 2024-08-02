@@ -164,7 +164,6 @@ async function main() {
     }
     const propertyName = match[1]
     const propertyValue = match[2]
-    console.log(propertyName, propertyValue)
     const hasProperty = Object.prototype.hasOwnProperty.call(
       block.properties,
       propertyName

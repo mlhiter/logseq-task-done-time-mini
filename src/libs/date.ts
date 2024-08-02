@@ -40,10 +40,5 @@ const dateFormatPatterns: Record<string, string> = {
 
 // 根据用户的日期格式生成正则表达式
 export function getDatePattern(preferredDateFormat: string): string {
-  console.log('preferredDateFormat', preferredDateFormat)
-  console.log(
-    'dateFormatPatterns[preferredDateFormat]',
-    dateFormatPatterns[preferredDateFormat]
-  )
   return dateFormatPatterns[preferredDateFormat] || '\\d{4}-\\d{2}-\\d{2}'
 }
