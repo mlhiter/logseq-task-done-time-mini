@@ -46,7 +46,7 @@ Thus, Task Done Time Mini was born. The name is quite casual; "mini" means I hop
 ## About Configuration Options
 
 It's quite simple, so refer to the images for guidance.
-![settings](screenshots/settings.png)
+![settings](screenshots/settings_en.png)
 
 ## Future Plans
 
