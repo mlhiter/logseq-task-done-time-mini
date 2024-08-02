@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["logseq", "mlhiter", "outliner", "upsert", "uuidv"]
+  "cSpell.words": ["logseq", "mlhiter", "outliner", "upsert", "uuidv"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
