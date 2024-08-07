@@ -7,7 +7,7 @@ export const settingSchema: Array<SettingSchemaDesc> = [
     default: '{content} - [[{date}]]',
     title: 'Done信息',
     description:
-      '插入的信息，支持几个变量，如`{date}`指当前日期，`{time}`指当前时间',
+      '插入的信息，支持几个变量，如`{date}`指当前日期，`{time}`指当前时间;\n请注意：属性模式属性名不要使用带有`-`或者大写字母的字符串',
   },
   {
     key: 'displayPosition',
