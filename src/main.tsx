@@ -156,7 +156,7 @@ async function main() {
     preferredDateFormat: string
   ) {
     // 从doneContent中提取出属性值
-    const propertyRegex = /(\w+)::\s+(.+)/
+    const propertyRegex = /^([a-z-]+)::\s+(.+)/
     const match = doneContent.match(propertyRegex)
     if (!match) {
       await logseq.UI.showMsg('请在设置中设置正确的属性格式.', 'error')
