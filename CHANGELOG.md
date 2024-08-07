@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.2...v1.1.3) (2024-08-07)
+
+
+### Bug Fixes
+
+* propertyName regexp error ([0f684fa](https://github.com/mlhiter/logseq-task-done-time-mini/commit/0f684fad82e87017a6b75fbadf0a8c06986dd5f9))
+
 ## [1.1.2](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.1...v1.1.2) (2024-08-02)
 
 

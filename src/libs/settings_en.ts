@@ -7,7 +7,7 @@ export const englishSettingSchema: Array<SettingSchemaDesc> = [
     default: '{content} - [[{date}]]',
     title: 'Done Information',
     description:
-      'Insert information that supports several variables, such as `{date}` for the current date and `{time}` for the current time.',
+      'Insert information that supports several variables, such as `{date}` for the current date and `{time}` for the current time.\n Note: Do not use strings with `-` or uppercase letters for property schema property names.',
   },
   {
     key: 'displayPosition',
