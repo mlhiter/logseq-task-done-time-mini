@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.3...v1.1.4) (2024-08-07)
+
+
+### Bug Fixes
+
+* modified settings ([bb27f93](https://github.com/mlhiter/logseq-task-done-time-mini/commit/bb27f93e1118c6b367e67a6f9b5d521b763353d4))
+
 ## [1.1.3](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.2...v1.1.3) (2024-08-07)
 
 
