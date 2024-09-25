@@ -1,8 +1,12 @@
 # Logseq Task Done Time Mini Plugin✔️
 
-中文|[English](./README.en.md)
+中文 | [English](./README.en.md)
 
 > 给你的 DONE 状态静默添加完成信息（日期、时间甚至更多.....）
+
+## 注意
+
+这个插件与 timetracking 暂时不兼容，请在设置里关闭 timetracking 功能（设置-编辑器-开启 timetracking，将它关闭）
 
 ## 背景
 

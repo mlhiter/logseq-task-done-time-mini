@@ -4,6 +4,10 @@
 
 > Silently adds completion information (date, time, and more...) to your DONE state.
 
+## Note
+
+This plugin is temporarily incompatible with timetracking; please disable the timetracking function in the settings (Settings-Editor-Enable timetracking, and turn it off).
+
 ## Background
 
 I always felt that the DONE state of tasks in Logseq was not perfect; it should automatically add completion time or similar information.
