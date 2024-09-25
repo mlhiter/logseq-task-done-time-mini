@@ -32,7 +32,9 @@ const dateFormatPatterns: Record<string, string> = {
   'do MMMM yyyy': '\\w{3,4} \\w{4,} \\d{4}',
 
   'yyyy-MM-dd': '\\d{4}-\\d{2}-\\d{2}',
+  'yyyy-MM-dd EEEE': '\\d{4}-\\d{2}-\\d{2} \\w{4,}',
   'yyyy/MM/dd EEEE': '\\d{4}/\\d{2}/\\d{2} \\w{4,}',
+  'yyyy/MM/dd': '\\d{4}/\\d{2}/\\d{2}',
   yyyyMMdd: '\\d{8}',
   yyyy_MM_dd: '\\d{4}_\\d{2}_\\d{2}',
   yyyy年MM月dd日: '\\d{4}年\\d{2}月\\d{2}日',

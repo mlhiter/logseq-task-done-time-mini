@@ -5,8 +5,8 @@
     "logseq",
     "mlhiter",
     "outliner",
+    "timetracking",
     "upsert",
     "uuidv"
-  ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  ]
 }
