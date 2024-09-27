@@ -65,8 +65,12 @@ async function main() {
     const currentPage = await logseq.Editor.getPage(pageId, {
       includeChildren: false,
     })
+
     if (
-      currentPage?.name === format(new Date(), preferredDateFormat) &&
+      currentPage?.name.replace(
+        /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/gi,
+        (match) => match.charAt(0).toUpperCase() + match.slice(1).toLowerCase()
+      ) === format(new Date(), preferredDateFormat) &&
       !isJournalPageAdd
     ) {
       return
