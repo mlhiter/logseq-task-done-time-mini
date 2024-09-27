@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.5...v1.1.6) (2024-09-27)
+
+
+### Bug Fixes
+
+* isJournalPageAdd match bug ([4f45814](https://github.com/mlhiter/logseq-task-done-time-mini/commit/4f45814c1f8c8fc507f2884942d8d5ab55dcfd15))
+
 ## [1.1.5](https://github.com/mlhiter/logseq-task-done-time-mini/compare/v1.1.4...v1.1.5) (2024-09-25)
 
 
